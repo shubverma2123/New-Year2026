@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy New Year 2026 - BOOM!</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      background: #000;
+      overflow: hidden;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      position: relative;
+      text-align: center;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .boom {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, #ff6b00 0%, #ff8c00 20%, transparent 60%);
+      opacity: 0;
+      pointer-events: none;
+      animation: boomEffect 1.2s forwards;
+      animation-delay: 1.4s;
+    }
+
+    .particles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .wish {
+      font-size: clamp(3.8rem, 11vw, 9rem);
+      font-weight: 900;
+      background: linear-gradient(90deg, #ffd700, #fff, #ffd700);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 40px rgba(255,215,0,0.9);
+      opacity: 0;
+      transform: scale(0.1);
+      animation: revealWish 1.8s forwards 2.3s;
+    }
+
+    .subtext {
+      font-size: clamp(1.6rem, 5vw, 2.8rem);
+      margin-top: 1rem;
+      opacity: 0;
+      animation: fadeIn 2s forwards 3.2s;
+      color: #ffea70;
+      text-shadow: 0 0 20px rgba(255,234,112,0.7);
+    }
+
+    /* Animations */
+    @keyframes boomEffect {
+      0%   { opacity: 0; transform: scale(0.1); }
+      40%  { opacity: 0.9; transform: scale(1.6); }
+      100% { opacity: 0; transform: scale(2.8); }
+    }
+
+    @keyframes revealWish {
+      0%   { opacity: 0; transform: scale(0.1) rotate(-15deg); }
+      50%  { opacity: 1; transform: scale(1.15) rotate(5deg); }
+      100% { opacity: 1; transform: scale(1) rotate(0deg); }
+    }
+
+    @keyframes fadeIn {
+      0%   { opacity: 0; transform: translateY(60px); }
+      100% { opacity: 0.95; transform: translateY(0); }
+    }
+
+    .particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: #ffd700;
+      border-radius: 50%;
+      box-shadow: 0 0 15px #ffd700;
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="boom"></div>
+    
+    <div class="particles" id="particles"></div>
+    
+    <h1 class="wish">HAPPY NEW YEAR</h1>
+    <div class="subtext">2026</div>
+    <div class="subtext" style="font-size:1.4rem; margin-top:2rem; opacity:0; animation-delay:3.8s;">
+     <p>✨ Happy New Year, My Dear Friends & Family! ✨</p>
+     <p>May this New Year bring 💖 love to our hearts, 😊 smiles to our faces, and 🌈 peace to our lives.</p>
+        <p>Wishing you all a year filled with endless joy, success, and unforgettable moments! 🎉🎆</p>
+        <p>💫 With lots of love, Happy New Year! 2026 💫</p>
+        — From <strong>Shubham Verma</strong> 💫
+    </div>
+  </div>
+
+  <script>
+    // Create exploding particles
+    function createParticles() {
+      const container = document.getElementById('particles');
+      for(let i = 0; i < 80; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.style.left = Math.random() * 100 + 'vw';
+        p.style.top = Math.random() * 100 + 'vh';
+        
+        const angle = Math.random() * Math.PI * 2;
+        const distance = Math.random() * 400 + 150;
+        const dx = Math.cos(angle) * distance;
+        const dy = Math.sin(angle) * distance;
+        
+        p.style.transform = `translate(${dx}px, ${dy}px)`;
+        p.style.animation = `flyOut ${Math.random() * 1.2 + 0.8}s forwards`;
+        p.style.animationDelay = (Math.random() * 0.6 + 1.6) + 's';
+        
+        container.appendChild(p);
+        
+        setTimeout(() => p.remove(), 3000);
+      }
+    }
+
+    // Fly out animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes flyOut {
+        0%   { opacity: 0.9; transform: translate(0,0) scale(1); }
+        100% { opacity: 0; transform: translate(var(--dx,0),var(--dy,0)) scale(0.3); }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Trigger after page load
+    window.addEventListener('load', () => {
+      setTimeout(createParticles, 1800); // sync with boom
+    });
+  </script>
+</body>
+</html>
